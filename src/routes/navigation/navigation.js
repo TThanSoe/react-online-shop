@@ -1,24 +1,74 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
+import { Outlet } from "react-router-dom";
+import BestLogo from "../../assets/logo.svg";
+import { menuItems } from "../../components/menuItems/menuItems";
+import CartIcon from "../../components/cart-icon/cart-icon.component";
+import User from "../../components/user/user-icon-component";
+import { ReactComponent as BurgerMenu } from "../../assets/hamburger-menu.svg";
+import { ReactComponent as Close } from "../../assets/close.svg";
 import {
   NavigationContainer,
-  NavLinks,
   NavLink,
   LogoContainer,
+  HamburgerIcon,
+  CloseIcon,
+  MobileMenu,
+  DesktopMenu,
+  LogoIcon,
 } from "./navigation.styles";
-import { Outlet } from "react-router-dom";
 
 const Navigation = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const handleOpen = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <Fragment>
       <NavigationContainer>
-        <LogoContainer to="/">Logo</LogoContainer>
-        <NavLinks>
-          <NavLink to="/women">Women</NavLink>
-          <NavLink to="/men">Men</NavLink>
-          <NavLink to="/kids">Kids</NavLink>
-          <NavLink to="sign-in">Sign in</NavLink>
-          <NavLink to="sign-up">Sign up</NavLink>
-        </NavLinks>
+        {!isMenuOpen ? (
+          <HamburgerIcon onClick={handleOpen}>
+            <BurgerMenu />
+          </HamburgerIcon>
+        ) : null}
+        {isMenuOpen ? (
+          <CloseIcon onClick={handleOpen}>
+            <Close />
+          </CloseIcon>
+        ) : null}
+        <MobileMenu open={isMenuOpen}>
+          <LogoContainer to="/">
+            <LogoIcon />
+          </LogoContainer>
+          {menuItems.map((menu, index) => (
+            <NavLink to={menu.route} key={index}>
+              {menu.label}
+            </NavLink>
+          ))}
+          <NavLink to="/user">
+            <User />
+          </NavLink>
+          <NavLink to="/cart">
+            <CartIcon />
+          </NavLink>
+        </MobileMenu>
+        <DesktopMenu>
+          <LogoContainer to="/">
+            <img src={BestLogo} alt="logo" />
+          </LogoContainer>
+          {menuItems.map((menu, index) => (
+            <NavLink to={menu.route} key={index}>
+              {menu.label}
+            </NavLink>
+          ))}
+          <NavLink to="/user">
+            <User />
+          </NavLink>
+          <NavLink to="/cart">
+            <CartIcon />
+          </NavLink>
+        </DesktopMenu>
       </NavigationContainer>
       <Outlet />
     </Fragment>
