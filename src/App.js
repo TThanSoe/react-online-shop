@@ -4,7 +4,7 @@ import Home from "./routes/home/home";
 import Women from "./components/women/women-component";
 import Men from "./components/men/men-component";
 import Kids from "./components/kids/kids-component";
-import User from "./components/user/user-icon-component";
+import User from "./components/user-icon/user-icon-component";
 import "./App.css";
 
 function App() {
