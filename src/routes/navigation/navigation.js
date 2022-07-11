@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import BestLogo from "../../assets/logo.svg";
 import { menuItems } from "../../components/menuItems/menuItems";
 import CartIcon from "../../components/cart-icon/cart-icon.component";
-import User from "../../components/user/user-icon-component";
+import UserSvg from "../../components/user/user-icon-component";
 import { ReactComponent as BurgerMenu } from "../../assets/hamburger-menu.svg";
 import { ReactComponent as Close } from "../../assets/close.svg";
 import {
@@ -32,24 +32,28 @@ const Navigation = () => {
             <BurgerMenu />
           </HamburgerIcon>
         ) : null}
-        {isMenuOpen ? (
-          <CloseIcon onClick={handleOpen}>
-            <Close />
-          </CloseIcon>
-        ) : null}
         <MobileMenu open={isMenuOpen}>
+          {isMenuOpen ? (
+            <CloseIcon onClick={handleOpen}>
+              <Close />
+            </CloseIcon>
+          ) : null}
           <LogoContainer to="/">
             <LogoIcon />
           </LogoContainer>
           {menuItems.map((menu, index) => (
-            <NavLink to={menu.route} key={index}>
+            <NavLink
+              onClick={() => setIsMenuOpen(false)}
+              to={menu.route}
+              key={index}
+            >
               {menu.label}
             </NavLink>
           ))}
-          <NavLink to="/user">
-            <User />
+          <NavLink onClick={() => setIsMenuOpen(false)} to="/auth">
+            <UserSvg />
           </NavLink>
-          <NavLink to="/cart">
+          <NavLink onClick={() => setIsMenuOpen(false)} to="/cart">
             <CartIcon />
           </NavLink>
         </MobileMenu>
@@ -62,8 +66,8 @@ const Navigation = () => {
               {menu.label}
             </NavLink>
           ))}
-          <NavLink to="/user">
-            <User />
+          <NavLink to="/auth">
+            <UserSvg />
           </NavLink>
           <NavLink to="/cart">
             <CartIcon />

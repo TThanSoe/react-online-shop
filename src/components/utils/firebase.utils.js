@@ -1,7 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
 import {
   getAuth,
@@ -12,6 +11,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  RecaptchaVerifier,
 } from "firebase/auth";
 import {
   getFirestore,
@@ -26,55 +26,66 @@ import {
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCb6stYto0wzdaP7_1n90z6VnXpQiXvdOo",
-  authDomain: "clothing-db-ffa30.firebaseapp.com",
-  projectId: "clothing-db-ffa30",
-  storageBucket: "clothing-db-ffa30.appspot.com",
-  messagingSenderId: "908961030800",
-  appId: "1:908961030800:web:37381564378d57d8846e15",
+  apiKey: "AIzaSyCe2ItZEur1mum0mxY7MFVCRIpUq3dxhac",
+  authDomain: "bestclothes-6f430.firebaseapp.com",
+  projectId: "bestclothes-6f430",
+  storageBucket: "bestclothes-6f430.appspot.com",
+  messagingSenderId: "386382027978",
+  appId: "1:386382027978:web:8b89fcc283279066ad6833",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+export const db = getFirestore(app);
 
-const googleProvider = new GoogleAuthProvider();
+// export const recaptchaVerifier = new RecaptchaVerifier(
+//   "sign-in-button",
+//   {
+//     size: "normal",
+//     callback: (response) => {
+//       // reCAPTCHA solved, allow signInWithPhoneNumber.
+//       submitPhoneNumberAuth();
+//     },
+//   },
+//   auth
+// );
 
-googleProvider.setCustomParameters({
-  prompt: "select_account",
-});
+// const googleProvider = new GoogleAuthProvider();
 
-export const auth = getAuth();
-export const signInWithGooglePopup = () =>
-  signInWithPopup(auth, googleProvider);
-export const signInWithGoogleRedirect = () =>
-  signInWithRedirect(auth, googleProvider);
+// googleProvider.setCustomParameters({
+//   prompt: "select_account",
+// });
 
-export const db = getFirestore();
+// export const signInWithGooglePopup = () =>
+//   signInWithPopup(auth, googleProvider);
 
-export const addCollectionAndDocuments = async (
-  collectionKey,
-  objectsToAdd,
-  field
-) => {
-  const collectionRef = collection(db, collectionKey);
-  const batch = writeBatch(db);
+// export const signInWithGoogleRedirect = () =>
+//   signInWithRedirect(auth, googleProvider);
 
-  objectsToAdd.forEach((object) => {
-    const docRef = doc(collectionRef, object.title.toLowerCase());
-    batch.set(docRef, object);
-  });
+// export const addCollectionAndDocuments = async (
+//   collectionKey,
+//   objectsToAdd,
+//   field
+// ) => {
+//   const collectionRef = collection(db, collectionKey);
+//   const batch = writeBatch(db);
 
-  await batch.commit();
-  console.log("done");
-};
+//   objectsToAdd.forEach((object) => {
+//     const docRef = doc(collectionRef, object.title.toLowerCase());
+//     batch.set(docRef, object);
+//   });
 
-export const getCategoriesAndDocuments = async () => {
-  const collectionRef = collection(db, "categories");
-  const q = query(collectionRef);
+//   await batch.commit();
+// };
 
-  const querySnapshot = await getDocs(q);
-  return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
-};
+// export const getCategoriesAndDocuments = async () => {
+//   const collectionRef = collection(db, "categories");
+//   const q = query(collectionRef);
+
+//   const querySnapshot = await getDocs(q);
+//   return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
+// };
 
 export const createUserDocumentFromAuth = async (
   userAuth,
