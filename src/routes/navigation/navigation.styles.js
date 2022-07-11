@@ -5,16 +5,9 @@ import { ReactComponent as Logo } from "../../assets/logo.svg";
 export const NavigationContainer = styled.div`
   height: 100px;
   width: 100%;
+  z-index: 1;
 `;
 export const LogoContainer = styled(Link)``;
-
-// export const NavLinks = styled.div`
-//   width: 50%;
-//   height: 100%;
-//   display: flex;
-//   align-items: center;
-//   justify-content: flex-end;
-// `;
 
 export const NavLink = styled(Link)`
   padding: 10px 15px;
@@ -37,7 +30,7 @@ export const CloseIcon = styled.div`
   position: absolute;
   top: 0;
   left: 70%;
-  margin: 1rem;
+  margin-top: 20px;
   font-size: 1.1rem;
   z-index: 1;
   @media (min-width: 600px) {
@@ -56,6 +49,7 @@ export const MobileMenu = styled.nav`
   flex-direction: column;
   padding: 4rem 0.5rem;
   gap: 1rem;
+  z-index: 1;
   font-size: 1.1rem;
   font-weight: bold;
   transform: ${({ open }) => (open ? "translateX(0%);" : "translateX(-100%);")};
