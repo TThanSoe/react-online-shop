@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import BestLogo from "../../assets/logo.svg";
 import { menuItems } from "../../components/menuItems/menuItems";
 import CartIcon from "../../components/cart-icon/cart-icon.component";
-import UserSvg from "../../components/user/user-icon-component";
+import UserSvg from "../../components/user-icon/user-icon-component";
 import { ReactComponent as BurgerMenu } from "../../assets/hamburger-menu.svg";
 import { ReactComponent as Close } from "../../assets/close.svg";
 import {
